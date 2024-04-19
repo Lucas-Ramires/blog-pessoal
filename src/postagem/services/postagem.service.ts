@@ -2,6 +2,8 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Postagem } from "../entitites/postagem.entity";
 import { DeleteResult, ILike, Repository } from "typeorm";
+import { Tema } from "src/temaa/entities/tema.entity";
+import { TemaService } from "src/temaa/services/tema.service";
 
 
 @Injectable()
@@ -9,14 +11,19 @@ export class PostagemService {
 
     constructor(
         @InjectRepository(Postagem)
-        private postagemRepository: Repository<Postagem>
+        private postagemRepository: Repository<Postagem>,
+        private TemaService: TemaService
         /* pedimos pra criar uma instancia de repository passando como parametro 
         a postagem ele vai fazer o crud do objeto postagem da tabela postagem */
     ) { }
 
 
     async findAll(): Promise<Postagem[]> {
-        return await this.postagemRepository.find();
+        return await this.postagemRepository.find({
+            relations:{
+                tema: true
+            }
+        });
         // isso é equivalente a fazer select * from tb_postagens;
         // promise promete que vai trazer um array com muitas coisas ou void
         // o await precisa ser utilizado pq a função é assincrona 
@@ -29,6 +36,9 @@ export class PostagemService {
         let postagem = await this.postagemRepository.findOne({
             where: {
                 id
+            },
+            relations: {
+                 tema: true
             }
         });
         // checa se a postagem nao foi encontrada
@@ -45,7 +55,10 @@ export class PostagemService {
             where: {
                 titulo: ILike(`%${titulo}%`)
                 //o ILike ignora se é maiusculo ou minusculo e vai trazer do msm jeito
-            }
+            },
+            relations: {
+                tema: true
+           }
         })
     }
     async create(postagem: Postagem): Promise<Postagem> {
