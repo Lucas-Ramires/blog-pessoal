@@ -14,7 +14,7 @@ import { TemaModule } from './temaa/tema.module';
     host: 'localhost',
     port: 3306,
     username: 'root',
-    password: 'kutum@12',
+    password: 'root',
     database: 'db_blogpessoal',
     entities: [Postagem, Tema],
     synchronize: true,
