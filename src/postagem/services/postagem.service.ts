@@ -6,6 +6,7 @@ import { Tema } from "src/temaa/entities/tema.entity";
 import { TemaService } from "src/temaa/services/tema.service";
 
 
+
 @Injectable()
 export class PostagemService {
 
@@ -21,7 +22,8 @@ export class PostagemService {
     async findAll(): Promise<Postagem[]> {
         return await this.postagemRepository.find({
             relations:{
-                tema: true
+                tema: true,
+                usuario: true
             }
         });
         // isso é equivalente a fazer select * from tb_postagens;
@@ -38,7 +40,8 @@ export class PostagemService {
                 id
             },
             relations: {
-                 tema: true
+                 tema: true,
+                 usuario: true
             }
         });
         // checa se a postagem nao foi encontrada
@@ -57,7 +60,8 @@ export class PostagemService {
                 //o ILike ignora se é maiusculo ou minusculo e vai trazer do msm jeito
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true
            }
         })
     }

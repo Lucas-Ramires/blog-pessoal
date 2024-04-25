@@ -1,14 +1,15 @@
-import { Delete, Put, Post, Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe } from '@nestjs/common';
+import { Delete, Put, Post, Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { PostagemService } from '../services/postagem.service';
 import { Postagem } from '../entitites/postagem.entity';
+import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 
-
+@UseGuards(JwtAuthGuard)
 @Controller('/postagens')
 export class PostagemController {
   constructor(private readonly postagemService: PostagemService) { }
 
   @Get()
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.OK) // é o status code
   findAll(): Promise<Postagem[]> {
     return this.postagemService.findAll();
   }
@@ -35,7 +36,7 @@ export class PostagemController {
   }
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  dele(@Param('id', ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipe) id: number) {
     return this.postagemService.delete(id);
   }
 }
