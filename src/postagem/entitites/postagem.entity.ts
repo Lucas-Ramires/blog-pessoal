@@ -1,22 +1,22 @@
 import { Transform, TransformFnParams } from "class-transformer";
 import { IsNotEmpty } from "class-validator";
-import { Tema } from "src/temaa/entities/tema.entity";
-import { Usuario } from "src/usuario/entities/usuario.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Tema } from "../../temaa/entities/tema.entity";
+import { Usuario } from "../../usuario/entities/usuario.entity";
 
 @Entity({name: "tb_postagens"})
 export class Postagem{
 
-    @PrimaryGeneratedColumn() //chave primaria e autoincrement
+    @PrimaryGeneratedColumn() // Chave Primária e Auto_Increment
     id: number;
 
-    @Transform(({ value }: TransformFnParams) => value?.trim())
-    //o trim tira os espaços em branco
-    //o transformfnparans faz pegar só o texto para aplicar o trim e validar
+    // Validação para espaços em branco
+    @Transform(({ value }: TransformFnParams) => value?.trim()) 
     @IsNotEmpty()
     @Column({length: 100, nullable: false})
     titulo: string;
 
+    // Validação para espaços em branco
     @Transform(({ value }: TransformFnParams) => value?.trim())
     @IsNotEmpty()
     @Column({length: 1000, nullable: false})
@@ -25,14 +25,14 @@ export class Postagem{
     @UpdateDateColumn()
     data: Date;
 
-    //
-    @ManyToOne(() => Tema, (tema) => tema.postagem,{
+    @ManyToOne(() => Tema, (tema) => tema.postagem, {
         onDelete: "CASCADE"
     })
-    tema: Tema; //chave estrangeira
+    tema: Tema; // Chave Estrangeira
 
-    @ManyToOne(() => Usuario, (usuario) => usuario.postagem,{
+    @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
         onDelete: "CASCADE"
     })
-    usuario: Usuario; // relacionamento com classe Usuario
+    usuario: Usuario; // Chave Estrangeira
+    
 }

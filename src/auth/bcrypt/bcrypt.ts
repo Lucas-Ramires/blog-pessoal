@@ -8,14 +8,12 @@ export  class Bcrypt{
 
         let saltos: number = 10
         return await bcrypt.hash(senha, saltos);
-        //hash criptografa
 
     }
 
     async compararSenhas(senhaBanco: string, senhaDigitada: string): Promise<boolean>{
     
         return bcrypt.compareSync(senhaDigitada, senhaBanco);
-        //compare compara senha digitada com senha do banco
         
     }
 }

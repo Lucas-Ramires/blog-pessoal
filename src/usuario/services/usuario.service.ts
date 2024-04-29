@@ -49,32 +49,39 @@ export class UsuarioService {
 
     }
 
-    async create(usuario: Usuario): Promise<Usuario> {
+    async create(objetoUsuario: Usuario): Promise<Usuario> {
         
-        let buscaUsuario = await this.findByUsuario(usuario.usuario);
+        let buscaUsuario = await this.findByUsuario(objetoUsuario.usuario);
 
         if (!buscaUsuario) {
-            usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha)
-            return await this.usuarioRepository.save(usuario);
+
+            if (!objetoUsuario.foto)
+                objetoUsuario.foto = 'https://i.imgur.com/Sk5SjWE.jpg'
+            
+            objetoUsuario.senha = await this.bcrypt.criptografarSenha(objetoUsuario.senha)
+            return await this.usuarioRepository.save(objetoUsuario);
         }
 
         throw new HttpException("O Usuario ja existe!", HttpStatus.BAD_REQUEST);
 
     }
 
-    async update(usuario: Usuario): Promise<Usuario> {
+    async update(objetoUsuario: Usuario): Promise<Usuario> {
 
-        let updateUsuario: Usuario = await this.findById(usuario.id);
-        let buscaUsuario = await this.findByUsuario(usuario.usuario);
+        let updateUsuario: Usuario = await this.findById(objetoUsuario.id);
+        let buscaUsuario = await this.findByUsuario(objetoUsuario.usuario);
 
         if (!updateUsuario)
             throw new HttpException('Usuário não encontrado!', HttpStatus.NOT_FOUND);
 
-        if (buscaUsuario && buscaUsuario.id !== usuario.id)
+        if (buscaUsuario && buscaUsuario.id !== objetoUsuario.id)
             throw new HttpException('Usuário (e-mail) já Cadastrado!', HttpStatus.BAD_REQUEST);
 
-        usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha)
-        return await this.usuarioRepository.save(usuario);
+        if (!objetoUsuario.foto)
+            objetoUsuario.foto = 'https://i.imgur.com/Sk5SjWE.jpg'
+
+        objetoUsuario.senha = await this.bcrypt.criptografarSenha(objetoUsuario.senha)
+        return await this.usuarioRepository.save(objetoUsuario);
 
     }
 
