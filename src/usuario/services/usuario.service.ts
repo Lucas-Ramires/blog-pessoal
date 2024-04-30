@@ -56,7 +56,7 @@ export class UsuarioService {
         if (!buscaUsuario) {
 
             if (!objetoUsuario.foto)
-                objetoUsuario.foto = 'https://i.imgur.com/Sk5SjWE.jpg'
+                objetoUsuario.foto = 'https://imgs.search.brave.com/jEgFickfxcR_ehuVgRpJwDckgh7A--d5qu712j0Jm0o/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni82MzI1LzYzMjUx/MDkucG5n'
             
             objetoUsuario.senha = await this.bcrypt.criptografarSenha(objetoUsuario.senha)
             return await this.usuarioRepository.save(objetoUsuario);
@@ -78,7 +78,7 @@ export class UsuarioService {
             throw new HttpException('Usuário (e-mail) já Cadastrado!', HttpStatus.BAD_REQUEST);
 
         if (!objetoUsuario.foto)
-            objetoUsuario.foto = 'https://i.imgur.com/Sk5SjWE.jpg'
+            objetoUsuario.foto = 'https://imgs.search.brave.com/jEgFickfxcR_ehuVgRpJwDckgh7A--d5qu712j0Jm0o/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni82MzI1LzYzMjUx/MDkucG5n'
 
         objetoUsuario.senha = await this.bcrypt.criptografarSenha(objetoUsuario.senha)
         return await this.usuarioRepository.save(objetoUsuario);

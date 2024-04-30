@@ -14,5 +14,5 @@ export class Tema {
     descricao: string
     
     @OneToMany(() => Postagem, (postagem) => postagem.tema)
-    postagem: Postagem[] // Listar todas as Postagens associadas ao Tema
+    postagem: Postagem[] 
 }

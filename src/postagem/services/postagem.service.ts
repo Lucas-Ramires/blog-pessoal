@@ -20,7 +20,7 @@ export class PostagemService{
             }
         });
 
-        // SELECT * FROM tb_postagens;
+        
     }
 
     async findById(id: number): Promise<Postagem> {
@@ -35,14 +35,14 @@ export class PostagemService{
             }
         });
 
-        // Checar se a postagem não foi encontrada
+        
         if (!postagem)
             throw new HttpException('Postagem não encontrada!', HttpStatus.NOT_FOUND);
 
-        // Retornar a postagem, caso ela exista
+        
         return postagem;
 
-        // SELECT * FROM tb_postagens WHERE id = ?;
+        
     }
 
     async findByTitulo(titulo: string): Promise<Postagem[]>{
