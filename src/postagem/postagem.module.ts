@@ -1,10 +1,11 @@
-import { Module } from "@nestjs/common";
+﻿import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { PostagemService } from "./services/postagem.service";
 import { PostagemController } from "./controllers/postagem.controller";
-import { TemaModule } from "../temaa/tema.module";
-import { TemaService } from "../temaa/services/tema.service";
-import { Postagem } from "./entitites/postagem.entity";
+import { TemaService } from "../tema/services/tema.service";
+import { TemaModule } from "../tema/tema.module";
+import { Postagem } from "./entities/postagem.entity";
+
 
 @Module({
     imports: [TypeOrmModule.forFeature([Postagem]), TemaModule],

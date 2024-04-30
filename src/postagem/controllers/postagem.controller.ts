@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
+﻿import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
 import { PostagemService } from "../services/postagem.service";
 import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
-import { Postagem } from "../entitites/postagem.entity";
+import { Postagem } from "../entities/postagem.entity";
 
 @UseGuards(JwtAuthGuard)
 @Controller("/postagens")
@@ -10,19 +10,19 @@ export class PostagemController{
     constructor(private readonly postagemService: PostagemService) {}
 
     @Get()
-    @HttpCode(HttpStatus.OK) // HTTP Status 200
+    @HttpCode(HttpStatus.OK) 
     findAll(): Promise<Postagem[]>{
         return this.postagemService.findAll();
     }
 
     @Get('/:id')
-    @HttpCode(HttpStatus.OK) // HTTP Status 200
+    @HttpCode(HttpStatus.OK) 
     findById(@Param('id', ParseIntPipe) id: number): Promise<Postagem>{
         return this.postagemService.findById(id);
     }
 
     @Get('/titulo/:titulo')
-    @HttpCode(HttpStatus.OK) // HTTP Status 200
+    @HttpCode(HttpStatus.OK) 
     findByTitulo(@Param('titulo') titulo: string): Promise<Postagem[]>{
         return this.postagemService.findByTitulo(titulo);
     }
@@ -40,7 +40,7 @@ export class PostagemController{
     }
 
     @Delete('/:id')
-    @HttpCode(HttpStatus.NO_CONTENT) // HTTP Status 204
+    @HttpCode(HttpStatus.NO_CONTENT)
     delete(@Param('id', ParseIntPipe) id: number){
         return this.postagemService.delete(id);
     }
